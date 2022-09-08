@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply h-full;
+  }
+  body {
+    @apply h-full;
+  }
   h1 {
     @apply text-5xl;
   }
@@ -24,6 +30,9 @@
 }
 
 @layer components {
+  #root {
+    @apply h-full;
+  }
   .link {
     @apply cursor-pointer font-semibold text-sm text-white hover:underline;
   }
@@ -32,8 +41,8 @@
     hover:shadow-xl hover:text-discord-blurple focus:outline-none
     transition duration-200 ease-in-out whitespace-nowrap;
   }
-  .channel-icon {
-    @apply cursor-pointer flex items-center justify-center h-12 w-12 rounded-[50px] bg-gray-600 
+  .server-icon {
+    @apply cursor-pointer flex items-center justify-center h-12 w-12 rounded-[50px] bg-zinc-700 
     transition-all duration-500 ease-in-out 
     hover:rounded-2xl hover:bg-discord-blurple;
   }

@@ -1,26 +1,23 @@
-import {
-  BrowserRouter,
-  Routes as RoutesContainer,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes as RoutesContainer } from 'react-router-dom';
 
-import Header from "./components/Header";
-import OutletMenu from "./components/OutletMenu";
-import ChannelView from "./views/ChannelView";
-import HomeView from "./views/HomeView";
+import OutletMenu from './components/OutletMenu';
+import ChanelView from './views/ChanelView';
+import HomeView from './views/HomeView';
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <RoutesContainer>
-        <Route path="/" element={<OutletMenu />}>
-          <Route index element={<HomeView />} />
-        </Route>
-        <Route path="/channels" element={<ChannelView />} />
-        <Route path="/channels/:id" element={<ChannelView />} />
-      </RoutesContainer>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <div className="h-full">
+                <RoutesContainer>
+                    <Route path="/" element={<OutletMenu />}>
+                        <Route index element={<HomeView />} />
+                    </Route>
+                    <Route path="/chanels" element={<ChanelView />} />
+                    <Route path="/chanels/:id" element={<ChanelView />} />
+                </RoutesContainer>
+            </div>
+        </BrowserRouter>
+    );
 };
 
 export default App;
