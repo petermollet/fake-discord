@@ -11,7 +11,7 @@ const Header = () => {
     const [user] = useAuthState(auth);
     const navigate = useNavigate();
 
-    const redirect = () => navigate('/chanels');
+    const redirect = () => navigate('/channels');
 
     const handleLogin = (e) => {
         e.preventDefault();

@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes as RoutesContainer } from 'react-router-dom';
 
 import OutletMenu from './components/OutletMenu';
-import ChanelView from './views/ChanelView';
+import ChannelView from './views/ChannelView';
 import HomeView from './views/HomeView';
 
 const App = () => {
@@ -12,8 +12,7 @@ const App = () => {
                     <Route path="/" element={<OutletMenu />}>
                         <Route index element={<HomeView />} />
                     </Route>
-                    <Route path="/chanels" element={<ChanelView />} />
-                    <Route path="/chanels/:id" element={<ChanelView />} />
+                    <Route path="/channels" element={<ChannelView />} />
                 </RoutesContainer>
             </div>
         </BrowserRouter>

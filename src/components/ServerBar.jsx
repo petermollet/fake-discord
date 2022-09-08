@@ -6,7 +6,7 @@ import ServerIcon from './ServerIcon';
 
 const ServerBar = () => {
     return (
-        <div className="flex h-full w-16 flex-col items-center space-y-3 bg-zinc-800 pt-3">
+        <div className="flex h-screen w-16 min-w-[4rem] flex-col items-center space-y-3 bg-zinc-800 pt-3">
             <div className="server-icon">
                 <Logo className="h-5" />
             </div>
