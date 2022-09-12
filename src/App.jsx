@@ -1,18 +1,40 @@
-import { BrowserRouter, Route, Routes as RoutesContainer } from 'react-router-dom';
+import {
+    BrowserRouter,
+    Navigate,
+    Route,
+    Routes as RoutesContainer,
+} from 'react-router-dom';
 
-import OutletMenu from './components/OutletMenu';
-import ChannelView from './views/ChannelView';
+import AppLayout from './components/layout/AppLayout';
+import HomeLayout from './components/layout/HomeLayout';
+import * as URL from './constants/url';
 import HomeView from './views/HomeView';
+import PrivateMessageView from './views/PrivateMessageView';
+import ServerView from './views/ServerView';
 
 const App = () => {
     return (
         <BrowserRouter>
-            <div className="h-full">
+            <div className="h-screen">
                 <RoutesContainer>
-                    <Route path="/" element={<OutletMenu />}>
+                    <Route path={URL.URL_HOME} element={<HomeLayout />}>
                         <Route index element={<HomeView />} />
                     </Route>
-                    <Route path="/channels" element={<ChannelView />} />
+                    <Route path={URL.URL_SERVER} element={<AppLayout />}>
+                        <Route path={URL.URL_ME} element={<PrivateMessageView />} />
+                        <Route
+                            path={`${URL.URL_SERVER}/:${URL.URL_SERVER_ID}/:${URL.URL_CHANNEL_ID}`}
+                            element={<ServerView />}
+                        />
+                        <Route
+                            path={`${URL.URL_SERVER}/:${URL.URL_SERVER_ID}`}
+                            element={<ServerView />}
+                        />
+                        <Route
+                            path={URL.URL_SERVER}
+                            element={<Navigate to={URL.URL_ME} replace />}
+                        />
+                    </Route>
                 </RoutesContainer>
             </div>
         </BrowserRouter>

@@ -4,14 +4,15 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-import { auth, provider } from '../../firebase';
-import { ReactComponent as Logo } from '../assets/discord-logo.svg';
+import { auth, provider } from '../../../firebase';
+import { ReactComponent as Logo } from '../../assets/discord-logo.svg';
+import { URL_SERVER } from '../../constants/url';
 
 const Header = () => {
     const [user] = useAuthState(auth);
     const navigate = useNavigate();
 
-    const redirect = () => navigate('/channels');
+    const redirect = () => navigate(URL_SERVER);
 
     const handleLogin = (e) => {
         e.preventDefault();

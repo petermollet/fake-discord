@@ -1,5 +1,6 @@
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
 import { Field, Form, Formik } from 'formik';
+import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object({
@@ -7,9 +8,10 @@ const validationSchema = Yup.object({
 });
 
 const InputBar = () => {
+    const channelSelected = useSelector((state) => state.channel.channelSelected);
+
     const handleSubmit = (values, { resetForm }) => {
         values.message = values.message.trim();
-        console.log(values);
         resetForm();
     };
 
@@ -27,7 +29,7 @@ const InputBar = () => {
                             name="message"
                             type="text"
                             className="ml-3 w-full border-none bg-transparent text-gray-300 placeholder-zinc-500 outline-none"
-                            placeholder="Message #general"
+                            placeholder={`Message #${channelSelected?.name}`}
                         />
                     </Form>
                 </Formik>

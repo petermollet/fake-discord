@@ -1,9 +1,9 @@
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 
-import { ReactComponent as ImgLeft } from '../assets/discord-menu-left.svg';
-import { ReactComponent as ImgMiddle } from '../assets/discord-menu-middle.svg';
-import { ReactComponent as ImgRight } from '../assets/discord-menu-right.svg';
+import { ReactComponent as ImgLeft } from '../../assets/discord-menu-left.svg';
+import { ReactComponent as ImgMiddle } from '../../assets/discord-menu-middle.svg';
+import { ReactComponent as ImgRight } from '../../assets/discord-menu-right.svg';
 
 const Hero = () => {
     return (
