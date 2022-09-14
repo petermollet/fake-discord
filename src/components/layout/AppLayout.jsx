@@ -34,9 +34,9 @@ const AppLayout = () => {
             const docSnap = await getDocs(q);
             if (docSnap.empty) {
                 addDoc(collection(db, 'user'), {
-                    email: user.email,
+                    email: user.email.replace(/\s/g, '').toLowerCase(),
                     avatar: user.photoURL,
-                    name: user.displayName,
+                    name: user.displayName.replace(/\s/g, '').toLowerCase(),
                 });
             }
         };

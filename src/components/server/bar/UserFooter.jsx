@@ -16,7 +16,7 @@ const UserFooter = () => {
                 onClick={() => signOut(auth)}
             >
                 <img
-                    src="https://cdn.discordapp.com/avatars/306033777669308416/9fdf2b63b258f0de00f691eb9f623141.webp?size=32"
+                    src={user?.photoURL}
                     alt=""
                     className="h-8 w-8 rounded-full object-contain"
                 />
