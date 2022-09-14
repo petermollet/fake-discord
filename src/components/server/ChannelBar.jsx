@@ -1,12 +1,4 @@
-import {
-    addDoc,
-    collection,
-    doc,
-    getDoc,
-    onSnapshot,
-    query,
-    where,
-} from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -41,7 +33,7 @@ const ChannelBar = () => {
             });
             dispatch(setChannels(c));
         });
-        return unsubscribe;
+        return () => unsubscribe();
     }, [serverId]);
 
     useEffect(() => {
@@ -62,17 +54,6 @@ const ChannelBar = () => {
         }
     }, [channels, params, channelId, channelSelected, serverId]);
 
-    useEffect(() => {
-        if (channelSelected?.id && channelId && channelSelected.id === channelId) {
-            const channelRef = doc(db, 'channels', channelId);
-            getDoc(channelRef).then((doc) => {
-                const memberIds = doc.data().users.map((user) => user.id);
-                //TODO: get user info from memberIds
-                console.log(memberIds);
-            });
-        }
-    }, [channelId, channelSelected]);
-
     const handleAddChannel = (categoryName) => {
         if (!categoryName) return;
 
@@ -81,6 +62,7 @@ const ChannelBar = () => {
             addDoc(collection(db, 'channels'), {
                 categoryName,
                 channelName,
+                serverId,
             });
         }
     };

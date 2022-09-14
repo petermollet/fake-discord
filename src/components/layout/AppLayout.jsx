@@ -1,10 +1,18 @@
 import { PlusIcon } from '@heroicons/react/24/solid';
-import { collection, onSnapshot } from 'firebase/firestore';
+import {
+    addDoc,
+    collection,
+    getDocs,
+    onSnapshot,
+    query,
+    where,
+} from 'firebase/firestore';
 import React, { useEffect } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { db } from '../../../firebase';
+import { auth, db } from '../../../firebase';
 import { ReactComponent as Logo } from '../../assets/icon_clyde_white_RGB.svg';
 import { URL_SERVER_ID } from '../../constants/url';
 import { setServerInfo, setServers } from '../../store/serverSlice';
@@ -19,9 +27,27 @@ const AppLayout = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const [user] = useAuthState(auth);
+    useEffect(() => {
+        const createUserOnFirestoreIfNotExisting = async () => {
+            const q = query(collection(db, 'user'), where('email', '==', user.email));
+            const docSnap = await getDocs(q);
+            if (docSnap.empty) {
+                addDoc(collection(db, 'user'), {
+                    email: user.email,
+                    avatar: user.photoURL,
+                    name: user.displayName,
+                });
+            }
+        };
+
+        if (!user) return;
+        createUserOnFirestoreIfNotExisting();
+    }, [user]);
+
     useEffect(() => {
         const channelsRef = collection(db, 'servers');
-        onSnapshot(channelsRef, (snapshot) => {
+        const unsubscribe = onSnapshot(channelsRef, (snapshot) => {
             dispatch(
                 setServers(
                     snapshot.docs.map((doc) => ({
@@ -31,6 +57,7 @@ const AppLayout = () => {
                 ),
             );
         });
+        return () => unsubscribe();
     }, []);
 
     useEffect(() => {

@@ -7,6 +7,7 @@ const initialState = {
         avatar: null,
     },
     servers: [],
+    members: [],
 };
 
 const serverSlice = createSlice({
@@ -19,11 +20,18 @@ const serverSlice = createSlice({
             state.serverSelected.avatar = action.payload.avatar;
         },
         setServers: (state, action) => {
-            state.servers = action.payload;
+            const payload = action.payload;
+            if (payload instanceof Array && payload.length > 0)
+                state.servers = payload.sort((a, b) => a.name.localeCompare(b.name));
+        },
+        setMembers: (state, action) => {
+            const payload = action.payload;
+            if (payload instanceof Array && payload.length > 0)
+                state.members = payload.sort((a, b) => a.name.localeCompare(b.name));
         },
     },
 });
 
-export const { setServerInfo, setServers } = serverSlice.actions;
+export const { setServerInfo, setServers, setMembers } = serverSlice.actions;
 
 export default serverSlice.reducer;
