@@ -6,7 +6,7 @@ const ChannelHeader = () => {
 
     return (
         <div
-            className="flex h-12 w-full items-center space-x-3 border-b border-gray-800 px-4 py-3 shadow 
+            className="flex h-[50px] w-full items-center space-x-3 border-b border-gray-800 px-4 py-3 shadow 
             hover:bg-zinc-700"
         >
             <HashtagIcon className="h-5 text-gray-400" />

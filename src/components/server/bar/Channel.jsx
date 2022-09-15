@@ -9,8 +9,7 @@ import { auth, db } from '../../../../firebase';
 import { URL_SERVER, URL_SERVER_ID } from '../../../constants/url';
 import { setChannelInfo } from '../../../store/channelSlice';
 import { URL_CHANNEL_ID } from './../../../constants/url';
-
-const EMAIL = 'plisken59@gmail.com';
+import { EMAIL } from './../../layout/AppLayout';
 
 const Channel = ({ id: channelId, name }) => {
     const navigate = useNavigate();

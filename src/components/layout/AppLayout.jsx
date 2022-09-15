@@ -17,7 +17,10 @@ import { ReactComponent as Logo } from '../../assets/icon_clyde_white_RGB.svg';
 import { URL_SERVER_ID } from '../../constants/url';
 import { setServerInfo, setServers } from '../../store/serverSlice';
 import { URL_HOME, URL_ME } from './../../constants/url';
+import LoadingScreen from './../lib/LoadingScreen';
 import ServerIcon from './ServerIcon';
+
+export const EMAIL = 'plisken59@gmail.com';
 
 const AppLayout = () => {
     const servers = useSelector((state) => state.server.servers);
@@ -26,11 +29,13 @@ const AppLayout = () => {
     const params = useParams();
     const navigate = useNavigate();
     const location = useLocation();
-    const [user] = useAuthState(auth);
+    const [user, isLoading] = useAuthState(auth);
 
     useEffect(() => {
-        if (!user) navigate(URL_HOME);
-    }, []);
+        if (!isLoading && !user) {
+            navigate(URL_HOME);
+        }
+    }, [user, isLoading]);
 
     useEffect(() => {
         const createUserOnFirestoreIfNotExisting = async () => {
@@ -74,6 +79,18 @@ const AppLayout = () => {
         }
     }, [servers]);
 
+    const handleAddServer = () => {
+        if (user.email !== EMAIL) return;
+        const serverName = prompt('Enter a server name');
+        if (serverName) {
+            addDoc(collection(db, 'servers'), {
+                name: serverName,
+            });
+        }
+    };
+
+    if (isLoading) return <LoadingScreen />;
+
     return (
         <div className="flex h-full max-h-full bg-zinc-700">
             <div className="flex w-16 min-w-[4rem] flex-col items-center space-y-3 bg-zinc-800 pt-3">
@@ -83,6 +100,7 @@ const AppLayout = () => {
                     hover:rounded-2xl hover:bg-discord-blurple
                     ${location.pathname == URL_ME && 'rounded-2xl bg-discord-blurple'}`}
                     onClick={() => navigate(URL_ME)}
+                    type="button"
                 >
                     <Logo className="h-5" />
                 </button>
@@ -95,13 +113,15 @@ const AppLayout = () => {
                         id={server.id}
                     />
                 ))}
-                <div
+                <button
                     className="group flex h-12 w-12 cursor-pointer items-center justify-center rounded-[50px] 
                     bg-zinc-700 transition-all duration-500 
-                    ease-in-out hover:rounded-2xl hover:bg-discord-green "
+                    ease-in-out hover:rounded-2xl hover:bg-discord-green"
+                    onClick={handleAddServer}
+                    type="button"
                 >
                     <PlusIcon className="h-7 text-discord-green group-hover:text-white" />
-                </div>
+                </button>
             </div>
 
             <Outlet />

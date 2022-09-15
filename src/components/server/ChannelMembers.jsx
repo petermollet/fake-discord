@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { db } from '../../../firebase';
-import DefaultAvatar from '../../assets/default-avatar.png';
 import { setMembers } from '../../store/serverSlice';
+import Avatar from './../lib/Avatar';
 
 const ChannelMembers = () => {
     const members = useSelector((state) => state.server.members);
@@ -38,14 +38,11 @@ const ChannelMembers = () => {
 
 export default ChannelMembers;
 
-const Member = ({ name, avatar }) => {
+export const Member = ({ name, avatar }) => {
     return (
         <div className="flex cursor-pointer items-center space-x-3 rounded px-1  py-2 text-sm font-medium hover:bg-zinc-700">
-            <img
-                src={avatar ? avatar : DefaultAvatar}
-                alt=""
-                className="h-8 w-8 rounded-full object-contain"
-            />
+            <Avatar avatar={avatar} />
+
             <p className="truncate">{name}</p>
         </div>
     );

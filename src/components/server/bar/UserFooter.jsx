@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '../../../../firebase';
 import { ReactComponent as Headphone } from '../../../assets/headphone.svg';
+import Avatar from './../../lib/Avatar';
 
 const UserFooter = () => {
     const [user] = useAuthState(auth);
@@ -15,11 +16,7 @@ const UserFooter = () => {
                 hover:bg-zinc-700"
                 onClick={() => signOut(auth)}
             >
-                <img
-                    src={user?.photoURL}
-                    alt=""
-                    className="h-8 w-8 rounded-full object-contain"
-                />
+                <Avatar avatar={user?.photoURL} />
                 <div className="flex flex-col items-start">
                     <span className="max-w-[96px] truncate text-sm font-bold">
                         {user.displayName.replace(/\s/g, '').toLowerCase()}
