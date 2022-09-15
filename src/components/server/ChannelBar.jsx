@@ -38,12 +38,18 @@ const ChannelBar = () => {
 
     useEffect(() => {
         if (channels?.length > 0 && (!channelSelected?.id || !channelId)) {
-            const serverId = params[URL_SERVER_ID];
-            const channel = channelId
-                ? channels.find((channel) => channel.id === channelId)
-                : channels[0];
+            let channel;
+            if (channelId) {
+                const index = channels.findIndex((c) => c.id === channelId);
+                if (index === -1) channel = channels[index];
+                else channel = channels ? channels[0] : null;
+            } else {
+                channel = channels ? channels[0] : null;
+            }
 
-            navigate(`${URL_SERVER}/${serverId}/${channel.id}`, { replace: true });
+            navigate(`${URL_SERVER}/${serverId}/${channel ? channel.id : ''}`, {
+                replace: true,
+            });
 
             dispatch(
                 setChannelInfo({
@@ -52,7 +58,7 @@ const ChannelBar = () => {
                 }),
             );
         }
-    }, [channels, params, channelId, channelSelected, serverId]);
+    }, [channels, serverId, channelId, channelSelected, serverId]);
 
     const handleAddChannel = (categoryName) => {
         if (!categoryName) return;

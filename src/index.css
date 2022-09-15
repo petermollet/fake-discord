@@ -7,7 +7,7 @@
         font-family: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
     body {
-        @apply h-full;
+        @apply h-full w-screen;
     }
     h1 {
         @apply text-5xl;
@@ -31,15 +31,16 @@
 
 @layer components {
     #root {
-        @apply h-full;
+        @apply h-full w-screen;
     }
     .link {
         @apply cursor-pointer text-sm font-semibold text-white hover:underline;
     }
     .btn-white {
-        @apply whitespace-nowrap rounded-full bg-white px-5 py-3 text-sm 
-        font-bold transition duration-200
-        ease-in-out hover:text-discord-blurple hover:shadow-xl focus:outline-none;
+        @apply whitespace-nowrap rounded-full bg-white px-5 py-3 text-sm font-bold 
+        transition duration-200 ease-in-out 
+        hover:text-discord-blurple hover:shadow-xl focus:outline-none
+        disabled:cursor-not-allowed disabled:bg-white disabled:shadow-none disabled:opacity-70;
     }
 }
 

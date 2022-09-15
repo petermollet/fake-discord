@@ -15,7 +15,7 @@ import ServerView from './views/ServerView';
 const App = () => {
     return (
         <BrowserRouter>
-            <div className="h-screen">
+            <div className="h-screen w-screen">
                 <RoutesContainer>
                     <Route path={URL.URL_HOME} element={<HomeLayout />}>
                         <Route index element={<HomeView />} />

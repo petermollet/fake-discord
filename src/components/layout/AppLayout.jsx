@@ -16,7 +16,7 @@ import { auth, db } from '../../../firebase';
 import { ReactComponent as Logo } from '../../assets/icon_clyde_white_RGB.svg';
 import { URL_SERVER_ID } from '../../constants/url';
 import { setServerInfo, setServers } from '../../store/serverSlice';
-import { URL_ME } from './../../constants/url';
+import { URL_HOME, URL_ME } from './../../constants/url';
 import ServerIcon from './ServerIcon';
 
 const AppLayout = () => {
@@ -26,8 +26,12 @@ const AppLayout = () => {
     const params = useParams();
     const navigate = useNavigate();
     const location = useLocation();
-
     const [user] = useAuthState(auth);
+
+    useEffect(() => {
+        if (!user) navigate(URL_HOME);
+    }, []);
+
     useEffect(() => {
         const createUserOnFirestoreIfNotExisting = async () => {
             const q = query(collection(db, 'user'), where('email', '==', user.email));
