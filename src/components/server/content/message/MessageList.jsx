@@ -26,10 +26,22 @@ const MessageList = () => {
                         const currentDate = DateUtils.formatToYearMonthDay(message.date);
                         isSameDayAsPrevious = datePrevious === currentDate;
                     }
+
+                    let isSameUserAsPrevious = false;
+                    if (index > 0) {
+                        isSameUserAsPrevious =
+                            messages[index - 1].username === message.username;
+                    }
+
                     return (
                         <Fragment key={id}>
                             {!isSameDayAsPrevious && <Separator date={message.date} />}
-                            <Message {...message} />
+                            <Message
+                                isSimpleMessage={
+                                    isSameDayAsPrevious && isSameUserAsPrevious
+                                }
+                                {...message}
+                            />
                         </Fragment>
                     );
                 })}

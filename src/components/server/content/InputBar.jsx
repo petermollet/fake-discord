@@ -1,7 +1,11 @@
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
+import { addDoc, collection } from 'firebase/firestore';
 import { Field, Form, Formik } from 'formik';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
+
+import { auth, db } from '../../../../firebase';
 
 const validationSchema = Yup.object({
     message: Yup.string().required('').trim(),
@@ -9,9 +13,17 @@ const validationSchema = Yup.object({
 
 const InputBar = ({ disabled }) => {
     const channelSelected = useSelector((state) => state.channel.channelSelected);
+    const [user] = useAuthState(auth);
 
     const handleSubmit = (values, { resetForm }) => {
         values.message = values.message.trim();
+        addDoc(collection(db, 'messages'), {
+            content: values.message,
+            date: new Date().toString(),
+            channelId: channelSelected.id,
+            avatar: user.photoURL,
+            username: user.displayName,
+        });
         resetForm();
     };
 

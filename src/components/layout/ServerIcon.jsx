@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { ReactComponent as Logo } from '../../assets/icon_clyde_white_RGB.svg';
 import { URL_SERVER, URL_SERVER_ID } from '../../constants/url';
 import { setChannelInfo, setChannels } from '../../store/channelSlice';
 import { setServerInfo } from '../../store/serverSlice';
@@ -37,7 +38,11 @@ const ServerIcon = ({ avatar, name, id }) => {
                 group-hover:rounded-2xl group-hover:bg-zinc-800 
                 ${active && 'rounded-2xl'}`}
             >
-                <img src={avatar} alt="" className="w-15 h-15 " />
+                {avatar ? (
+                    <img src={avatar} alt="" className="w-15 h-15 " />
+                ) : (
+                    <Logo className="h-5" />
+                )}
             </button>
         </div>
     );

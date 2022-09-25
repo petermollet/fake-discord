@@ -7,7 +7,7 @@
         font-family: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
     body {
-        @apply h-full w-screen;
+        @apply h-screen w-screen max-w-[100vw];
     }
     h1 {
         @apply text-5xl;
@@ -39,8 +39,8 @@
     .btn-white {
         @apply whitespace-nowrap rounded-full bg-white px-5 py-3 text-sm font-bold 
         transition duration-200 ease-in-out 
-        hover:text-discord-blurple hover:shadow-xl focus:outline-none
-        disabled:cursor-not-allowed disabled:bg-white disabled:shadow-none disabled:opacity-70;
+        focus:outline-none disabled:cursor-not-allowed disabled:bg-white
+        disabled:opacity-70 disabled:shadow-none hover:text-discord-blurple hover:shadow-xl;
     }
 }
 
